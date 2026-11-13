@@ -3,6 +3,12 @@
 
 This is an educational Java/Spring microservices project.
 
+## Architecture
+- Each microservice owns its database.
+- Services communicate through explicit APIs/events.
+- Business logic belongs in the service layer.
+- Avoid distributed database transactions.
+
 ## Goals
 - Learn distributed systems, concurrency and security.
 - Prefer understandable designs over unnecessary complexity.
@@ -17,6 +23,9 @@ This is an educational Java/Spring microservices project.
 - Do not introduce new infrastructure without justification.
 - Preserve database ownership boundaries.
 - Explicitly identify race conditions and failure scenarios.
+- Do not create READMEs without justification.
+- Do not use var.
+- Use Lombok annotations
 
 ## Completion
 - Run relevant tests.

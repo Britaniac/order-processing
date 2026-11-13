@@ -7,6 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class InventoryServiceApplicationTests {
 
     @Test
-    void contextLoads() {
+    void whenApplicationStartsThenContextLoads() {
     }
 }

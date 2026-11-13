@@ -1,2 +1,19 @@
-# Infrastructure will be added when requirements are defined.
-services: {}
+services:
+  order-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: orders
+      POSTGRES_USER: order_service
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD:-order_service}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U order_service -d orders"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  order-db-data:
