@@ -2,12 +2,16 @@ package com.orderflow.order.repository;
 
 import com.orderflow.order.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderCreationRepository extends JpaRepository<Order, Long> {
     // PostgreSQL arbitrates concurrent claims; a duplicate does not abort the transaction.
@@ -19,6 +23,15 @@ public interface OrderCreationRepository extends JpaRepository<Order, Long> {
             """, nativeQuery = true)
     int insertIfAbsent(@Param("customer") Long customerId, @Param("key") String key,
                        @Param("total") BigDecimal total);
+
+    @EntityGraph(attributePaths = "items")
+    Optional<Order> findWithItemsById(Long id);
+
+    @Query(value = "select o.id from Order o", countQuery = "select count(o) from Order o")
+    Page<Long> findIds(Pageable pageable);
+
+    @EntityGraph(attributePaths = "items")
+    List<Order> findWithItemsByIdIn(List<Long> ids);
 
     Optional<Order> findByRequestKey(String requestKey);
 }

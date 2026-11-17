@@ -46,10 +46,11 @@ class OrderCreationServiceTest {
 
         var result = service.create(KEY, request);
 
+        verify(itemRepository).saveAllAndFlush(savedItems.capture());
+
         assertTrue(result.created());
         assertEquals(new OrderResponse(99L, 123L, OrderStatus.PENDING, new BigDecimal("27.50"),
                 List.of(request.items().getLast(), request.items().getFirst())), result.order());
-        verify(itemRepository).saveAllAndFlush(savedItems.capture());
         var items = savedItems.getValue();
         assertEquals(2, items.size());
         assertItem(items.get(0), order, 7L, 2, "1.00");

@@ -18,7 +18,7 @@ This is an educational Java/Spring microservices project.
 - Discuss significant architectural changes before implementation.
 - Explain tradeoffs and alternatives.
 - Implement one feature at a time.
-- Write meaningful integration tests.
+- Write meaningful tests.
 - Never silently weaken tests to make a build pass.
 - Do not introduce new infrastructure without justification.
 - Preserve database ownership boundaries.
@@ -31,4 +31,3 @@ This is an educational Java/Spring microservices project.
 - Run relevant tests.
 - Summarize changes.
 - Identify remaining risks.
-- Suggest the next learning exercise.

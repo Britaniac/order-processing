@@ -4,12 +4,16 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id
@@ -28,6 +32,10 @@ public class Order {
 
     @Column(name = "request_key", nullable = false, length = 128)
     private String requestKey;
+
+    @OneToMany(mappedBy = "order")
+    @OrderBy("productId ASC")
+    private List<OrderItem> items = new ArrayList<>();
 
     public Order(OrderStatus status, BigDecimal total, Long customerId,
                  String requestKey) {
